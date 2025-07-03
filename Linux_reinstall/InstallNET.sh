@@ -846,7 +846,12 @@ $gptPartitionPreseed
 		[[ "$2" -le "1" || "$4" != "all" ]] && {
 			clearPart="clearpart --drives=${ksIncDisk} --all --initlabel"
 			if [[ "$7" == "enabled" ]]; then
-				FormatDisk=$(echo -e "part / --fstype="xfs" --ondisk="$ksIncDisk" --grow --size="0"\n${swapRecipe}part /boot --fstype="xfs" --ondisk="$ksIncDisk" --size="1024"\npart /boot/efi --fstype="efi" --ondisk="$ksIncDisk" --size="512"")
+   FormatDisk=$(echo -e "part / --fstype=\"xfs\" --ondisk=\"$ksIncDisk\" --size=\"40960\"
+part /data --fstype=\"xfs\" --ondisk=\"$ksIncDisk\" --grow --size=\"1\"
+${swapRecipe}
+part /boot --fstype=\"xfs\" --ondisk=\"$ksIncDisk\" --size=\"1024\"
+part /boot/efi --fstype=\"efi\" --ondisk=\"$ksIncDisk\" --size=\"512\"")
+				#FormatDisk=$(echo -e "part / --fstype="xfs" --ondisk="$ksIncDisk" --grow --size="0"\n${swapRecipe}part /boot --fstype="xfs" --ondisk="$ksIncDisk" --size="1024"\npart /boot/efi --fstype="efi" --ondisk="$ksIncDisk" --size="512"")
 			else
            FormatDisk=$(echo -e "part / --fstype=\"xfs\" --ondisk=\"$ksIncDisk\" --size=\"40960\"
 part /data --fstype=\"xfs\" --ondisk=\"$ksIncDisk\" --grow --size=\"1\"
